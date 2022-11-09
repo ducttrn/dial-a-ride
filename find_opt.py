@@ -40,7 +40,7 @@ def optimal(graph, time_limit) -> int:
         if perm[last_request] != current_request:
             requests_served, last_request = calculate_served_requests(graph, perm, time_limit)
             max_requests = max(max_requests, requests_served)
-            current_request = last_request
+            current_request = perm[last_request]
 
     print(f"Time taken: {time.time() - start}")
     return max_requests
