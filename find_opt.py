@@ -13,6 +13,7 @@ def calculate_served_requests(graph, permutation, time_limit) -> int:
     while time_left > 0 and request_index < len(permutation):
         request_id = permutation[request_index]
         request = graph.requests[request_id]
+        last_request = request_index
 
         if current_destination == request.src.id:
             requests_served += 1
@@ -24,7 +25,7 @@ def calculate_served_requests(graph, permutation, time_limit) -> int:
             current_destination = request.src.id
 
     print(permutation, requests_served)
-    return requests_served
+    return requests_served, last_request
 
 
 def optimal(graph, time_limit) -> int:
@@ -32,9 +33,14 @@ def optimal(graph, time_limit) -> int:
     max_requests = 0  # maximum number of requests served within time limit
     requests = graph.requests
     permutations = list(itertools.permutations(requests, len(requests)))  # list of request IDs
+    current_request = 0
+    last_request = 0
 
     for perm in permutations:
-        max_requests = max(max_requests, calculate_served_requests(graph, perm, time_limit))
+        if perm[last_request] != current_request:
+            requests_served, last_request = calculate_served_requests(graph, perm, time_limit)
+            max_requests = max(max_requests, requests_served)
+            current_request = last_request
 
     print(f"Time taken: {time.time() - start}")
     return max_requests
