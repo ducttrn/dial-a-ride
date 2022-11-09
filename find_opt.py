@@ -36,7 +36,10 @@ def optimal(graph, time_limit) -> int:
 
     max_requests = 0  # maximum number of requests served within time limit
     requests = graph.requests
-    permutations = list(itertools.permutations(requests, len(requests)))  # list of request IDs
+    if time_limit < len(graph.requests.keys()):
+        permutations = list(itertools.permutations(requests, time_limit))
+    else:
+        permutations = list(itertools.permutations(requests, len(requests)))  # list of request IDs
     current_request = 0
     last_request = 0
 
