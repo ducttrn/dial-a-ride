@@ -1,5 +1,6 @@
 import itertools
 import time
+import math
 
 from graph import construct_graph
 
@@ -30,6 +31,9 @@ def calculate_served_requests(graph, permutation, time_limit) -> int:
 
 def optimal(graph, time_limit) -> int:
     start = time.time()
+    if time_limit > 2*len(graph.requests.keys()):
+        return len(graph.requests.keys())
+
     max_requests = 0  # maximum number of requests served within time limit
     requests = graph.requests
     permutations = list(itertools.permutations(requests, len(requests)))  # list of request IDs
