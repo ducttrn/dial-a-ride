@@ -46,7 +46,7 @@ def optimal(graph, time_limit) -> int:
             max_requests = max(max_requests, requests_served)
             current_request = perm[last_request]
 
-    print(f"Time taken: {time.time() - start}")
+    print(f"Time taken: {time.time() - start}, Max # requests: {max_requests}")
     return max_requests
 
 
@@ -77,6 +77,7 @@ if __name__ == "__main__":
         "9": ("G", "F"),
         "10": ("G", "H"),
         "11": ("G", "C"),
+        "12": ("D", "H"),
     }
     graph = construct_graph(node_ids_, request_data)
-    print(optimal(graph, 10))
+    optimal(graph, 12)
