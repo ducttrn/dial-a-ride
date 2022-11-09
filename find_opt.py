@@ -1,15 +1,15 @@
 import itertools
 import time
-import math
 
 from graph import construct_graph
 
 
-def calculate_served_requests(graph, permutation, time_limit) -> int:
+def calculate_served_requests(graph, permutation, time_limit) -> (int, int):
     requests_served = 0
     time_left = time_limit
     current_destination = graph.requests[permutation[0]].src.id
     request_index = 0
+    last_request = 0
 
     while time_left > 0 and request_index < len(permutation):
         request_id = permutation[request_index]
