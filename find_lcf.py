@@ -1,15 +1,19 @@
-from find_lc import find_longest_chain
+from find_lc import find_longest_chain, find_longest_chain_no_removals
 from find_opt import optimal
 from graph import Graph, construct_graph
 
 
-def find_lcf_outcome(graph: Graph, time_limit: int) -> int:
+def find_lcf_outcome(graph: Graph, time_limit: int, no_removals=False) -> int:
     served = 0  # number of requests served
     time_remaining = time_limit
     jump_needed = False
 
     while time_remaining > 0:
-        max_chain, max_chain_length = find_longest_chain(graph)
+        if no_removals:
+            max_chain, max_chain_length = find_longest_chain_no_removals(graph)
+        else:
+            max_chain, max_chain_length = find_longest_chain(graph)
+
         if jump_needed:
             time_remaining -= 1  # jump if not first request
         else:
@@ -40,4 +44,9 @@ if __name__ == "__main__":
     }
     graph = construct_graph(node_ids_, request_data)
     print(f"Optimal: {optimal(graph, 7)}")
+
+    graph = construct_graph(node_ids_, request_data)
     print(f"LCF: {find_lcf_outcome(graph, 7)}")
+
+    graph = construct_graph(node_ids_, request_data)
+    print(f"LCF with normal DFS: {find_lcf_outcome(graph, 7, no_removals=True)}")
