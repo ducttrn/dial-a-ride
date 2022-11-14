@@ -20,6 +20,12 @@ class Graph:
         self.nodes = nodes
         self.requests = requests
 
+    def remove_request(self, request_id: str):
+        request = self.requests[request_id]
+        request.src.out_requests.remove(request_id)
+        request.dst.in_requests.remove(request_id)
+        del self.requests[request_id]
+
 
 def construct_graph(node_ids, request_data) -> Graph:
     nodes = {node_id: Node(node_id) for node_id in node_ids}

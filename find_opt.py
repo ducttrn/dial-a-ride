@@ -1,10 +1,11 @@
 import itertools
 import time
+from typing import List
 
-from graph import construct_graph
+from graph import construct_graph, Graph
 
 
-def calculate_served_requests(graph, permutation, time_limit) -> (int, int):
+def calculate_served_requests(graph: Graph, permutation: List[str], time_limit: int) -> (int, int):
     requests_served = 0
     time_left = time_limit
     current_destination = graph.requests[permutation[0]].src.id
@@ -29,15 +30,15 @@ def calculate_served_requests(graph, permutation, time_limit) -> (int, int):
     return requests_served, last_request
 
 
-def optimal(graph, time_limit) -> int:
+def optimal(graph: Graph, time_limit: int) -> int:
     start = time.time()
-    if time_limit > 2*len(graph.requests.keys()):
+    if time_limit > 2 * len(graph.requests.keys()):
         return len(graph.requests.keys())
 
     max_requests = 0  # maximum number of requests served within time limit
     requests = graph.requests
     if time_limit < len(graph.requests.keys()):
-        permutations = list(itertools.permutations(requests, time_limit))
+        permutations = list(itertools.permutations(requests, time_limit))  # find a way to do lazy loading/save memory
     else:
         permutations = list(itertools.permutations(requests, len(requests)))  # list of request IDs
     current_request = 0

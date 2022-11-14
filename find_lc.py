@@ -1,11 +1,13 @@
+from typing import List
+
 from graph import Node, Graph, construct_graph
 
 
 def find_longest_chain(graph: Graph):
     max_chain_length = 0
-    max_chain = set()
+    max_chain = []
 
-    def dfs(current_node: Node, served: set[str], current_chain_length: int):
+    def dfs(current_node: Node, served: List[str], current_chain_length: int):
         if current_node.out_requests.issubset(served):
             nonlocal max_chain_length
             nonlocal max_chain
@@ -16,14 +18,15 @@ def find_longest_chain(graph: Graph):
 
         for request_id in current_node.out_requests:
             if request_id not in served:
-                served.add(request_id)
+                served.append(request_id)
                 dfs(graph.requests[request_id].dst, served, current_chain_length + 1)
-                served.remove(request_id)
+                served.pop()
 
     for node in graph.nodes.values():
-        dfs(node, set(), 0)
+        dfs(node, [], 0)
 
     return max_chain, max_chain_length
+
 
 def find_longest_chain_no_removals(graph: Graph):
     max_chain_length = 0
