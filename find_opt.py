@@ -64,6 +64,11 @@ def optimal2(graph: Graph, time_limit: int) -> int:
     max_requests = 0  # maximum number of requests served within time limit
     requests = graph.requests
     array = np.array(list(requests.keys()))
+    if time_limit < len(graph.requests.keys()):
+        permutations = multiset_permutations(array, size = time_limit)  # find a way to do lazy loading/save memory
+    else:
+        permutations = multiset_permutations(array)  # list of request IDs
+    
     permutations = multiset_permutations(array)
     current_request = 0
     last_request = 0
@@ -108,4 +113,4 @@ if __name__ == "__main__":
         "12": ("D", "H"),
     }
     graph = construct_graph(node_ids_, request_data)
-    print(optimal2(graph, 12))
+    print(optimal2(graph, 13))
