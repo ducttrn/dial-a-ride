@@ -1,6 +1,8 @@
 import itertools
 import time
 from typing import List
+import numpy as np
+from sympy.utilities.iterables import multiset_permutations
 
 from graph import construct_graph, Graph
 
@@ -54,6 +56,28 @@ def optimal(graph: Graph, time_limit: int) -> int:
     return max_requests
 
 
+def optimal2(graph: Graph, time_limit: int) -> int:
+    start = time.time()
+    if time_limit > 2 * len(graph.requests.keys()):
+        return len(graph.requests.keys())
+
+    max_requests = 0  # maximum number of requests served within time limit
+    requests = graph.requests
+    array = np.array(list(requests.keys()))
+    permutations = multiset_permutations(array)
+    current_request = 0
+    last_request = 0
+
+    for perm in permutations:
+        if perm[last_request] != current_request:
+            requests_served, last_request = calculate_served_requests(graph, perm, time_limit)
+            max_requests = max(max_requests, requests_served)
+            current_request = perm[last_request]
+
+    print(f"Time taken: {time.time() - start}, Max # requests: {max_requests}")
+    return max_requests
+
+
 if __name__ == "__main__":
     node_ids_ = ["A", "B", "C", "D", "E", "F", "G", "H"]
     request_data = {
@@ -67,7 +91,7 @@ if __name__ == "__main__":
         "8": ("G", "H"),
     }
     graph = construct_graph(node_ids_, request_data)
-    print(optimal(graph, 7))
+    #print(optimal2(graph, 7))
 
     request_data = {
         "1": ("A", "B"),
@@ -84,4 +108,4 @@ if __name__ == "__main__":
         "12": ("D", "H"),
     }
     graph = construct_graph(node_ids_, request_data)
-    optimal(graph, 12)
+    print(optimal2(graph, 12))
