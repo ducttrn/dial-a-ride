@@ -4,7 +4,7 @@ from typing import List
 import numpy as np
 from sympy.utilities.iterables import multiset_permutations
 
-from graph import construct_graph, Graph
+from graph import construct_graph, generateRequestsUniform, Graph
 
 
 def calculate_served_requests(graph: Graph, permutation: List[str], time_limit: int) -> (int, int):
@@ -113,3 +113,6 @@ if __name__ == "__main__":
     }
     graph = construct_graph(node_ids_, request_data)
     optimal2(graph, 13)
+
+    graph = generateRequestsUniform(numberOfNodes = 6, numberOfRequests = 8)
+    print(optimal2(graph, 10))
