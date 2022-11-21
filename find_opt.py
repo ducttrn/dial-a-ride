@@ -28,7 +28,6 @@ def calculate_served_requests(graph: Graph, permutation: List[str], time_limit: 
             time_left -= 1
             current_destination = request.src.id
 
-    print(permutation, requests_served)
     return requests_served, last_request
 
 
@@ -65,11 +64,10 @@ def optimal2(graph: Graph, time_limit: int) -> int:
     requests = graph.requests
     array = np.array(list(requests.keys()))
     if time_limit < len(graph.requests.keys()):
-        permutations = multiset_permutations(array, size = time_limit)  # find a way to do lazy loading/save memory
+        permutations = multiset_permutations(array, size=time_limit)  # find a way to do lazy loading/save memory
     else:
         permutations = multiset_permutations(array)  # list of request IDs
-    
-    permutations = multiset_permutations(array)
+
     current_request = 0
     last_request = 0
 
@@ -96,7 +94,7 @@ if __name__ == "__main__":
         "8": ("G", "H"),
     }
     graph = construct_graph(node_ids_, request_data)
-    #print(optimal2(graph, 7))
+    optimal2(graph, 7)
 
     request_data = {
         "1": ("A", "B"),
@@ -111,6 +109,7 @@ if __name__ == "__main__":
         "10": ("G", "H"),
         "11": ("G", "C"),
         "12": ("D", "H"),
+        "13": ("D", "K"),
     }
     graph = construct_graph(node_ids_, request_data)
-    print(optimal2(graph, 13))
+    optimal2(graph, 13)

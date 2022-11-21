@@ -53,21 +53,18 @@ def find_longest_chain_no_removals(graph: Graph):
 
 
 if __name__ == "__main__":
-    node_ids_ = ["A", "B", "C", "D", "E", "F", "G", "H"]
+    node_ids_ = ["A", "B", "C", "D", "E", "F", "G"]
     request_data_ = {
-        "1": ("A", "B"),
-        "2": ("B", "C"),
-        "3": ("C", "D"),
-        "4": ("B", "G"),
-        "5": ("E", "F"),
-        "6": ("F", "G"),
-        "7": ("G", "F"),
-        "8": ("G", "H"),
+        "1": ("D", "B"),
+        "2": ("E", "C"),
+        "3": ("B", "C"),
+        "4": ("F", "E"),
+        "5": ("C", "E"),
+        "6": ("B", "D"),
     }
 
     graph_ = construct_graph(node_ids_, request_data_)
     print(find_longest_chain(graph_))
-    print(find_longest_chain_no_removals(graph_))
 
     # --------------------------------------------------------------------
     request_data_ = {
