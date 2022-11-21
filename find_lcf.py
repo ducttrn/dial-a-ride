@@ -44,9 +44,9 @@ if __name__ == "__main__":
         "7": ("G", "H"),
     }
 
-    for i in range(1):
+    for i in range(5):
         time_limit = randrange(1,15)
-        graph = generateRequestsUniform(numberOfNodes = randrange(1,15), numberOfRequests = randrange(20,22))
+        graph = generateRequestsUniform(numberOfNodes = randrange(1,15), numberOfRequests = randrange(5,8))
 
         opt = optimal2(graph, time_limit)
         lcf = find_lcf_outcome(graph, time_limit)
