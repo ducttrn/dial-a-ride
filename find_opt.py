@@ -115,4 +115,4 @@ if __name__ == "__main__":
     optimal2(graph, 13)
 
     graph = generateRequestsUniform(numberOfNodes = 6, numberOfRequests = 8)
-    print(optimal2(graph, 10))
+    optimal2(graph, 10)

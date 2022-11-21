@@ -58,4 +58,7 @@ def generateRequestsUniform(numberOfNodes: int, numberOfRequests: int) -> Graph:
         request_data[str(i + 1)] = (node_ids_[source], node_ids_[destination])
 
     graph = construct_graph(node_ids_, request_data)
+    print(f"Number of nodes: {numberOfNodes}, Number of requests {numberOfRequests}")
+    print(f"Graph Nodes: {[node for node in graph.nodes]}")
+    print(f"Graph Requests: {[(request.id, request.src.id, request.dst.id) for request in graph.requests.values()]}")
     return graph

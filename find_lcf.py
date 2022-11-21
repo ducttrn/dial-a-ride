@@ -1,6 +1,7 @@
 from find_lc import find_longest_chain, find_longest_chain_no_removals
-from find_opt import optimal
-from graph import Graph, construct_graph
+from find_opt import optimal2
+from graph import construct_graph, generateRequestsUniform, Graph
+from random import randrange
 
 
 def find_lcf_outcome(graph: Graph, time_limit: int, no_removals=False) -> int:
@@ -44,11 +45,17 @@ if __name__ == "__main__":
         "5": ("C", "E"),
         "6": ("B", "D"),
     }
-    graph = construct_graph(node_ids_, request_data)
-    print(f"Optimal: {optimal(graph, 11)}")
 
-    graph = construct_graph(node_ids_, request_data)
-    print(f"LCF: {find_lcf_outcome(graph, 11)}")
+    for i in range(5):
+        time_limit = randrange(1,15)
+        graph = generateRequestsUniform(numberOfNodes = randrange(1,7), numberOfRequests = randrange(5,8))
 
-    graph = construct_graph(node_ids_, request_data)
-    print(f"LCF with normal DFS: {find_lcf_outcome(graph, 11, no_removals=True)}")
+        opt = optimal2(graph, time_limit)
+        lcf = find_lcf_outcome(graph, time_limit)
+
+        print(f"Iteration: {i+1}")
+        print(f"Time limit: {time_limit}")
+        print(f"Optimal: {opt}")
+        print(f"LCF: {lcf}")
+
+        print(f"OPT to LCF ratio: {float(opt/lcf)}")
