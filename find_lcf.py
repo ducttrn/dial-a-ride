@@ -56,7 +56,4 @@ if __name__ == "__main__":
         print(f"Optimal: {opt}")
         print(f"LCF: {lcf}")
 
-        #graph = construct_graph(node_ids_, request_data)
-        #print(f"LCF with normal DFS: {find_lcf_outcome(graph, 7, no_removals=True)}")
-
         print(f"OPT to LCF ratio: {float(opt/lcf)}")

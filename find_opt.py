@@ -28,7 +28,6 @@ def calculate_served_requests(graph: Graph, permutation: List[str], time_limit: 
             time_left -= 1
             current_destination = request.src.id
 
-    print(permutation, requests_served)
     return requests_served, last_request
 
 
