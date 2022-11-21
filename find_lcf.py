@@ -46,9 +46,9 @@ if __name__ == "__main__":
         "6": ("B", "D"),
     }
 
-    for i in range(5):
-        time_limit = randrange(1,15)
-        graph = generateRequestsUniform(numberOfNodes = randrange(2,7), numberOfRequests = randrange(5,8)) # num of nodes needs to > 1
+    for i in range(100):
+        time_limit = randrange(5,15)
+        graph = generateRequestsUniform(numberOfNodes = randrange(4,8), numberOfRequests = randrange(8,13)) # num of nodes needs to > 1
 
         opt = optimal2(graph, time_limit)
         lcf = find_lcf_outcome(graph, time_limit)
@@ -58,4 +58,21 @@ if __name__ == "__main__":
         print(f"Optimal: {opt}")
         print(f"LCF: {lcf}")
 
-        print(f"OPT to LCF ratio: {float(opt/lcf)}")
+        ratio = float(opt/lcf)
+        if ratio < 1:
+            raise Exception(f"Wrong ratio")
+        elif ratio > 1:
+            f = open("ratio.txt", "a")
+            f.write(f"Number of nodes: {numberOfNodes}, Number of requests {numberOfRequests}")
+            f.write(f"Graph Nodes: {[node for node in graph.nodes]}")
+            f.write(f"Graph Requests: {[(request.id, request.src.id, request.dst.id) for request in graph.requests.values()]}")
+            f.write(f"Iteration: {i+1}")
+            f.write(f"Time limit: {time_limit}")
+            f.write(f"Optimal: {opt}")
+            f.write(f"LCF: {lcf}")
+            f.write(f"OPT to LCF ratio: {ratio}")
+            f.write(f"---------------------------")
+            f.close()
+
+        print(f"OPT to LCF ratio: {ratio}")
+        print(f"---------------------------")
