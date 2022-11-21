@@ -114,6 +114,3 @@ if __name__ == "__main__":
     }
     graph = construct_graph(node_ids_, request_data)
     #print(optimal2(graph, 13))
-
-    graph = generateRequestsUniform(numberOfNodes = 6, numberOfRequests = 8)
-    print(optimal2(graph, 10))
