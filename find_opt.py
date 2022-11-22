@@ -1,5 +1,4 @@
 import itertools
-import time
 from typing import List
 import numpy as np
 from sympy.utilities.iterables import multiset_permutations
@@ -56,7 +55,6 @@ def optimal(graph: Graph, time_limit: int) -> int:
 
 
 def optimal2(graph: Graph, time_limit: int) -> int:
-    start = time.time()
     if time_limit > 2 * len(graph.requests.keys()):
         return len(graph.requests.keys())
 
@@ -77,7 +75,6 @@ def optimal2(graph: Graph, time_limit: int) -> int:
             max_requests = max(max_requests, requests_served)
             current_request = perm[last_request]
 
-    print(f"Time taken: {time.time() - start}, Max # requests: {max_requests}")
     return max_requests
 
 
