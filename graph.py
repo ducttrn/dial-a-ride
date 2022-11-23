@@ -43,18 +43,19 @@ def construct_graph(node_ids, request_data) -> Graph:
     graph = Graph(nodes, requests)
     return graph
 
-    
-def generateRequestsUniform(numberOfNodes: int, numberOfRequests: int) -> Graph:
-    #number of nodes is less than 26
-    node_ids_ = [chr(node + 65) for node in range(numberOfNodes)]
+
+def generate_requests_uniform(nodes_count: int, requests_count: int) -> Graph:
+    # number of nodes is less than 26
+    node_ids_ = [chr(node + 65) for node in range(nodes_count)]
     request_data = {}
 
-    for i in range(numberOfRequests):
-        source = randrange(numberOfNodes)
-        destination = randrange(numberOfNodes)
+    for i in range(requests_count):
+        source = randrange(nodes_count)
+        destination = randrange(nodes_count)
         while destination == source:
-            destination = randrange(numberOfNodes)
+            destination = randrange(nodes_count)
 
         request_data[str(i + 1)] = (node_ids_[source], node_ids_[destination])
+
     graph = construct_graph(node_ids_, request_data)
     return graph

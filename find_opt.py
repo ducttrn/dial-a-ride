@@ -1,9 +1,8 @@
-import itertools
 from typing import List
 import numpy as np
 from sympy.utilities.iterables import multiset_permutations
 
-from graph import construct_graph, generateRequestsUniform, Graph
+from graph import construct_graph, Graph
 
 
 def calculate_served_requests(graph: Graph, permutation: List[str], time_limit: int) -> (int, int):
@@ -30,7 +29,7 @@ def calculate_served_requests(graph: Graph, permutation: List[str], time_limit: 
     return requests_served, permutation[:last_request+1]
 
 
-def optimal(graph: Graph, time_limit: int) -> int:
+def find_optimal(graph: Graph, time_limit: int) -> int:
     if time_limit > 2 * len(graph.requests.keys()):
         return len(graph.requests.keys())
 
@@ -65,4 +64,4 @@ if __name__ == "__main__":
         "7": ("B", "A"),
     }
     graph = construct_graph(node_ids_, request_data)
-    print(f"Optimal: {optimal(graph, 7)}")
+    print(f"Optimal: {find_optimal(graph, 7)}")
