@@ -27,34 +27,10 @@ def calculate_served_requests(graph: Graph, permutation: List[str], time_limit: 
             time_left -= 1
             current_destination = request.src.id
 
-    return requests_served, last_request
+    return requests_served, permutation[:last_request+1]
 
 
 def optimal(graph: Graph, time_limit: int) -> int:
-    start = time.time()
-    if time_limit > 2 * len(graph.requests.keys()):
-        return len(graph.requests.keys())
-
-    max_requests = 0  # maximum number of requests served within time limit
-    requests = graph.requests
-    if time_limit < len(graph.requests.keys()):
-        permutations = list(itertools.permutations(requests, time_limit))  # find a way to do lazy loading/save memory
-    else:
-        permutations = list(itertools.permutations(requests, len(requests)))  # list of request IDs
-    current_request = 0
-    last_request = 0
-
-    for perm in permutations:
-        if perm[last_request] != current_request:
-            requests_served, last_request = calculate_served_requests(graph, perm, time_limit)
-            max_requests = max(max_requests, requests_served)
-            current_request = perm[last_request]
-
-    print(f"Time taken: {time.time() - start}, Max # requests: {max_requests}")
-    return max_requests
-
-
-def optimal2(graph: Graph, time_limit: int) -> int:
     if time_limit > 2 * len(graph.requests.keys()):
         return len(graph.requests.keys())
 
@@ -66,14 +42,13 @@ def optimal2(graph: Graph, time_limit: int) -> int:
     else:
         permutations = multiset_permutations(array)  # list of request IDs
 
-    current_request = 0
-    last_request = 0
+    last_perm = [0]
 
     for perm in permutations:
-        if perm[last_request] != current_request:
-            requests_served, last_request = calculate_served_requests(graph, perm, time_limit)
+        if perm[:len(last_perm)] != last_perm:
+            requests_served, current_perm = calculate_served_requests(graph, perm, time_limit)
             max_requests = max(max_requests, requests_served)
-            current_request = perm[last_request]
+            last_perm = current_perm
 
     return max_requests
 
@@ -81,35 +56,13 @@ def optimal2(graph: Graph, time_limit: int) -> int:
 if __name__ == "__main__":
     node_ids_ = ["A", "B", "C", "D", "E", "F", "G", "H"]
     request_data = {
-        "1": ("A", "B"),
-        "2": ("B", "C"),
-        "3": ("C", "D"),
-        "4": ("B", "G"),
-        "5": ("E", "F"),
-        "6": ("F", "G"),
-        "7": ("G", "F"),
-        "8": ("G", "H"),
+        "1": ("E", "H"),
+        "2": ("H", "D"),
+        "3": ("D", "E"),
+        "4": ("D", "B"),
+        "5": ("A", "D"),
+        "6": ("A", "C"),
+        "7": ("B", "A"),
     }
     graph = construct_graph(node_ids_, request_data)
-    optimal2(graph, 7)
-
-    request_data = {
-        "1": ("A", "B"),
-        "2": ("B", "C"),
-        "3": ("C", "D"),
-        "4": ("B", "G"),
-        "5": ("E", "F"),
-        "6": ("F", "G"),
-        "7": ("G", "F"),
-        "8": ("F", "G"),
-        "9": ("G", "F"),
-        "10": ("G", "H"),
-        "11": ("G", "C"),
-        "12": ("D", "H"),
-        "13": ("D", "K"),
-    }
-    graph = construct_graph(node_ids_, request_data)
-    optimal2(graph, 13)
-
-    graph = generateRequestsUniform(numberOfNodes = 6, numberOfRequests = 8)
-    optimal2(graph, 10)
+    print(f"Optimal: {optimal(graph, 7)}")
