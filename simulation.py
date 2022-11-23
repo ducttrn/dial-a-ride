@@ -34,9 +34,9 @@ if __name__ == "__main__":
     greater_than_one = 0
     for i in range(iterations):
         start = time.time()
-        time_limit = randrange(time_limit_min, time_limit_max)
-        nodes_count = randrange(nodes_min, nodes_max)
-        requests_count = randrange(requests_min, requests_max)
+        time_limit = randrange(time_limit_min, time_limit_max + 1)
+        nodes_count = randrange(nodes_min, nodes_max + 1)
+        requests_count = randrange(requests_min, requests_max + 1)
         graph = generate_requests_uniform(nodes_count, requests_count)  # num of nodes needs to > 1
 
         opt = find_optimal(graph, time_limit)
