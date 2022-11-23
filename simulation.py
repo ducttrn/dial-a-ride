@@ -1,5 +1,5 @@
 from find_lcf import find_lcf_outcome
-from find_opt import optimal2
+from find_opt import optimal
 from graph import generateRequestsUniform, Graph
 from random import randrange
 import time
@@ -31,7 +31,7 @@ if __name__ == "__main__":
         numberOfRequests = randrange(requests_min, requests_max)
         graph = generateRequestsUniform(numberOfNodes, numberOfRequests) # num of nodes needs to > 1
 
-        opt = optimal2(graph, time_limit)
+        opt = optimal(graph, time_limit)
         lcf = find_lcf_outcome(graph, time_limit)
         ratio = float(opt/lcf)
 
