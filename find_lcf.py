@@ -12,10 +12,11 @@ def find_lcf_outcome(graph: Graph, time_limit: int, no_removals=False) -> int:
 
     while time_remaining > 0:
         if no_removals:
-            max_chain, max_chain_length = find_longest_chain_no_removals(graph_)
+            max_chain = find_longest_chain_no_removals(graph_)
         else:
-            max_chain, max_chain_length = find_longest_chain(graph_)
+            max_chain = find_longest_chain(graph_)
 
+        max_chain_length = len(max_chain)
         if max_chain_length == 0:
             return served
 
@@ -37,35 +38,29 @@ def find_lcf_outcome(graph: Graph, time_limit: int, no_removals=False) -> int:
 
 
 if __name__ == "__main__":
-    node_ids_ = ["A", "B", "C", "D", "E", "F", "G", "H"]
+    node_ids_ = ["A", "B", "C", "D"]
     request_data = {
-        "1": ("B", "A"),
-        "2": ("B", "G"),
-        "3": ("B", "E"),
-        "4": ("G", "C"),
-        "5": ("B", "F"),
-        "6": ("A", "D"),
-        "7": ("E", "F"),
-        "8": ("C", "D"),
-        "9": ("G", "C"),
-        "10": ("B", "F"),
+        "1": ("D", "A"),
+        "2": ("D", "C"),
+        "3": ("B", "D"),
+        "4": ("A", "D"),
+        "5": ("C", "A"),
+        "6": ("A", "B"),
+        "7": ("D", "A"),
+        "8": ("B", "D"),
+        "9": ("A", "C"),
+        "10": ("A", "C"),
         "11": ("A", "D"),
-        "12": ("E", "H"),
-        "13": ("C", "D"),
-        "14": ("B", "G"),
-        "15": ("H", "E"),
-        "16": ("G", "H"),
-        "17": ("B", "H"),
-        "18": ("A", "B"),
-        "19": ("G", "B"),
-        "20": ("E", "B"),
-        "21": ("C", "G"),
-        "22": ("F", "B"),
-        "23": ("D", "A"),
-        "24": ("F", "E"),
-        "25": ("D", "C"),
-        "26": ("C", "G"),
+        "12": ("A", "D"),
+        "13": ("C", "B"),
+        "14": ("A", "D"),
+        "15": ("C", "D"),
+        "16": ("D", "A"),
+        "17": ("A", "B"),
+        "18": ("A", "D"),
+        "19": ("A", "C"),
+        "20": ("B", "A"),
     }
     graph = construct_graph(node_ids_, request_data)
-    print(f"LCF with Normal DFS: {find_lcf_outcome(graph, 27, no_removals=True)}")
-    print(f"LCF with DFS-B: {find_lcf_outcome(graph, 27, no_removals=False)}")
+    print(f"LCF with Normal DFS: {find_lcf_outcome(graph, 28, no_removals=True)}")
+    print(f"LCF with DFS-B: {find_lcf_outcome(graph, 28, no_removals=False)}")

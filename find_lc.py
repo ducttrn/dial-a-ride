@@ -7,56 +7,56 @@ def find_longest_chain(graph: Graph):
     max_chain_length = 0
     max_chain = []
 
-    def dfs(current_node: Node, served: List[str], current_chain_length: int):
-        if current_node.out_requests.issubset(served):
+    def dfs(current_node: Node, current: List[str]):
+        if current_node.out_requests.issubset(current):
             nonlocal max_chain_length
             nonlocal max_chain
-            if current_chain_length > max_chain_length:
-                max_chain_length = current_chain_length
-                max_chain = served.copy()
+            if len(current) > max_chain_length:
+                max_chain_length = len(current)
+                max_chain = current.copy()
                 return
 
         for request_id in current_node.out_requests:
-            if request_id not in served:
-                served.append(request_id)
-                dfs(graph.requests[request_id].dst, served, current_chain_length + 1)
-                served.pop()
+            if request_id not in current:
+                current.append(request_id)
+                dfs(graph.requests[request_id].dst, current)
+                current.pop()
 
     for node in graph.nodes.values():
-        dfs(node, [], 0)
+        dfs(node, [])
 
-    return max_chain, max_chain_length
+    return max_chain
 
 
 def find_longest_chain_no_removals(graph: Graph):
     max_chain_length = 0
-    max_chain = set()
+    max_chain = []
     visited = set()
 
-    def dfs(current_node: Node, current: set[str], current_chain_length: int):
+    def dfs(current_node: Node, current: List[str]):
         if current_node.out_requests.issubset(visited):
             nonlocal max_chain_length
             nonlocal max_chain
-            if current_chain_length > max_chain_length:
-                max_chain_length = current_chain_length
+            if len(current) > max_chain_length:
+                max_chain_length = len(current)
                 max_chain = current.copy()
                 return
 
         for request_id in current_node.out_requests:
             if request_id not in visited:
                 visited.add(request_id)
-                current.add(request_id)
-                dfs(graph.requests[request_id].dst, current, current_chain_length + 1)
-                current.remove(request_id)
+                current.append(request_id)
+                dfs(graph.requests[request_id].dst, current)
+                current.pop()
 
     for node in graph.nodes.values():
-        dfs(node, set(), 0)
+        dfs(node, [])
 
-    return max_chain, max_chain_length
+    return max_chain
 
 
 if __name__ == "__main__":
-    node_ids_ = ["A", "B", "C", "D", "E", "F", "G"]
+    node_ids_ = ["A", "B", "C", "D", "E", "F", "G", "H"]
     request_data_ = {
         "1": ("D", "B"),
         "2": ("E", "C"),
@@ -68,6 +68,7 @@ if __name__ == "__main__":
 
     graph_ = construct_graph(node_ids_, request_data_)
     print(find_longest_chain(graph_))
+    print(find_longest_chain_no_removals(graph_))
 
     # --------------------------------------------------------------------
     request_data_ = {
@@ -122,10 +123,24 @@ if __name__ == "__main__":
 
     # --------------------------------------------------------------------
     request_data_ = {
-        "1": ("A", "B"),
-        "2": ("B", "C"),
-        "3": ("A", "D"),
-        "4": ("D", "B"),
+        "1": ("D", "A"),
+        "2": ("D", "C"),
+        "3": ("B", "D"),
+        "4": ("A", "D"),
+        "5": ("C", "A"),
+        "6": ("A", "B"),
+        "7": ("D", "A"),
+        "8": ("B", "D"),
+        "9": ("A", "C"),
+        "10": ("A", "C"),
+        "11": ("A", "D"),
+        "12": ("A", "D"),
+        "13": ("C", "B"),
+        "14": ("A", "D"),
+        "15": ("C", "D"),
+        "16": ("D", "A"),
+        "17": ("A", "B"),
+        "18": ("A", "D"),
     }
     graph_ = construct_graph(["A", "B", "C", "D"], request_data_)
     print(find_longest_chain(graph_))
