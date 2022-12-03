@@ -39,13 +39,33 @@ def find_lcf_outcome(graph: Graph, time_limit: int, no_removals=False) -> int:
 if __name__ == "__main__":
     node_ids_ = ["A", "B", "C", "D", "E", "F", "G", "H"]
     request_data = {
-        "1": ("A", "B"),
-        "2": ("B", "C"),
-        "3": ("C", "D"),
-        "4": ("B", "G"),
-        "5": ("E", "F"),
-        "6": ("F", "G"),
-        "7": ("G", "H"),
+        "1": ("B", "A"),
+        "2": ("B", "G"),
+        "3": ("B", "E"),
+        "4": ("G", "C"),
+        "5": ("B", "F"),
+        "6": ("A", "D"),
+        "7": ("E", "F"),
+        "8": ("C", "D"),
+        "9": ("G", "C"),
+        "10": ("B", "F"),
+        "11": ("A", "D"),
+        "12": ("E", "H"),
+        "13": ("C", "D"),
+        "14": ("B", "G"),
+        "15": ("H", "E"),
+        "16": ("G", "H"),
+        "17": ("B", "H"),
+        "18": ("A", "B"),
+        "19": ("G", "B"),
+        "20": ("E", "B"),
+        "21": ("C", "G"),
+        "22": ("F", "B"),
+        "23": ("D", "A"),
+        "24": ("F", "E"),
+        "25": ("D", "C"),
+        "26": ("C", "G"),
     }
     graph = construct_graph(node_ids_, request_data)
-    print(f"LCF: {find_lcf_outcome(graph, 7)}")
+    print(f"LCF with Normal DFS: {find_lcf_outcome(graph, 27, no_removals=True)}")
+    print(f"LCF with DFS-B: {find_lcf_outcome(graph, 27, no_removals=False)}")

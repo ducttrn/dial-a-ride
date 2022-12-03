@@ -1,0 +1,48 @@
+Number of nodes: 10, Number of requests 8
+Graph Nodes: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
+Graph Requests: [('1', 'H', 'A'), ('2', 'D', 'H'), ('3', 'E', 'D'), ('4', 'E', 'I'), ('5', 'F', 'B'), ('6', 'A', 'G'), ('7', 'I', 'F'), ('8', 'I', 'H')]
+Time limit: 8
+Optimal: 7
+LCF: 6
+OPT to LCF ratio: 1.1666666666666667
+---------------------------
+Number of nodes: 10, Number of requests 9
+Graph Nodes: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
+Graph Requests: [('1', 'H', 'F'), ('2', 'I', 'E'), ('3', 'B', 'E'), ('4', 'H', 'B'), ('5', 'B', 'H'), ('6', 'F', 'A'), ('7', 'D', 'I'), ('8', 'E', 'A'), ('9', 'J', 'D')]
+Time limit: 9
+Optimal: 8
+LCF: 7
+OPT to LCF ratio: 1.1428571428571428
+---------------------------
+Number of nodes: 8, Number of requests 10
+Graph Nodes: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
+Graph Requests: [('1', 'B', 'H'), ('2', 'C', 'F'), ('3', 'B', 'E'), ('4', 'H', 'C'), ('5', 'H', 'E'), ('6', 'G', 'D'), ('7', 'D', 'A'), ('8', 'C', 'F'), ('9', 'A', 'E'), ('10', 'H', 'A')]
+Time limit: 7
+Optimal: 6
+LCF: 5
+OPT to LCF ratio: 1.2
+---------------------------
+Number of nodes: 9, Number of requests 10
+Graph Nodes: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']
+Graph Requests: [('1', 'C', 'H'), ('2', 'E', 'H'), ('3', 'H', 'G'), ('4', 'D', 'C'), ('5', 'G', 'H'), ('6', 'E', 'H'), ('7', 'E', 'F'), ('8', 'F', 'B'), ('9', 'D', 'E'), ('10', 'I', 'F')]
+Time limit: 8
+Optimal: 7
+LCF: 6
+OPT to LCF ratio: 1.1666666666666667
+---------------------------
+Number of nodes: 10, Number of requests 10
+Graph Nodes: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
+Graph Requests: [('1', 'A', 'F'), ('2', 'C', 'D'), ('3', 'I', 'G'), ('4', 'J', 'I'), ('5', 'B', 'C'), ('6', 'I', 'B'), ('7', 'F', 'B'), ('8', 'A', 'C'), ('9', 'H', 'J'), ('10', 'G', 'D')]
+Time limit: 9
+Optimal: 8
+LCF: 7
+OPT to LCF ratio: 1.1428571428571428
+---------------------------
+Number of nodes: 9, Number of requests 10
+Graph Nodes: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']
+Graph Requests: [('1', 'I', 'C'), ('2', 'F', 'B'), ('3', 'G', 'B'), ('4', 'C', 'F'), ('5', 'H', 'C'), ('6', 'H', 'G'), ('7', 'A', 'D'), ('8', 'I', 'F'), ('9', 'E', 'I'), ('10', 'D', 'H')]
+Time limit: 9
+Optimal: 8
+LCF: 7
+OPT to LCF ratio: 1.1428571428571428
+---------------------------

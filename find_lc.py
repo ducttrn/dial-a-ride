@@ -31,20 +31,23 @@ def find_longest_chain(graph: Graph):
 def find_longest_chain_no_removals(graph: Graph):
     max_chain_length = 0
     max_chain = set()
+    visited = set()
 
-    def dfs(current_node: Node, served: set[str], current_chain_length: int):
-        if current_node.out_requests.issubset(served):
+    def dfs(current_node: Node, current: set[str], current_chain_length: int):
+        if current_node.out_requests.issubset(visited):
             nonlocal max_chain_length
             nonlocal max_chain
             if current_chain_length > max_chain_length:
                 max_chain_length = current_chain_length
-                max_chain = served.copy()
+                max_chain = current.copy()
                 return
 
         for request_id in current_node.out_requests:
-            if request_id not in served:
-                served.add(request_id)
-                dfs(graph.requests[request_id].dst, served, current_chain_length + 1)
+            if request_id not in visited:
+                visited.add(request_id)
+                current.add(request_id)
+                dfs(graph.requests[request_id].dst, current, current_chain_length + 1)
+                current.remove(request_id)
 
     for node in graph.nodes.values():
         dfs(node, set(), 0)
@@ -119,9 +122,10 @@ if __name__ == "__main__":
 
     # --------------------------------------------------------------------
     request_data_ = {
-        "1": ("D", "A"),
-        "2": ("D", "B"),
-        "3": ("D", "C"),
+        "1": ("A", "B"),
+        "2": ("B", "C"),
+        "3": ("A", "D"),
+        "4": ("D", "B"),
     }
     graph_ = construct_graph(["A", "B", "C", "D"], request_data_)
     print(find_longest_chain(graph_))

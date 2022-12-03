@@ -40,7 +40,7 @@ if __name__ == "__main__":
         graph = generate_requests_uniform(nodes_count, requests_count)  # num of nodes needs to > 1
 
         opt = find_optimal(graph, time_limit)
-        lcf = find_lcf_outcome(graph, time_limit)
+        lcf = find_lcf_outcome(graph, time_limit, no_removals=True)
         ratio = float(opt / lcf)
 
         print(f"Iteration: {i + 1}")
