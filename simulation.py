@@ -41,12 +41,14 @@ if __name__ == "__main__":
         time_limit = randrange(time_limit_min, time_limit_max + 1)
         nodes_count = randrange(nodes_min, nodes_max + 1)
         requests_count = randrange(requests_min, requests_max + 1)
+        # avoid giving too much time to see the difference between dfs_backtrack and dfs_normal
+        scaled_time_limit = min(time_limit, requests_count * 2 - 1)
         # num of nodes needs to > 1
         # pick relatively big number of nodes to avoid long runtime of DFS-B
         scaled_nodes_count = max(nodes_count, requests_count // 3)
-        print(f"Nodes: {scaled_nodes_count}, Requests: {requests_count}")
+        print(f"Nodes: {scaled_nodes_count}, Requests: {requests_count}, Time: {scaled_time_limit}")
 
         graph = generate_requests_uniform(scaled_nodes_count, requests_count)
-        dfs_normal = find_lcf_outcome(graph, time_limit, no_removals=True)
-        dfs_backtrack = find_lcf_outcome(graph, time_limit, no_removals=False)
-        write_instance_to_file(i + 1, requests_count, nodes_count, time_limit, dfs_backtrack, dfs_normal)
+        dfs_normal = find_lcf_outcome(graph, scaled_time_limit, no_removals=True)
+        dfs_backtrack = find_lcf_outcome(graph, scaled_time_limit, no_removals=False)
+        write_instance_to_file(i + 1, requests_count, scaled_nodes_count, scaled_time_limit, dfs_backtrack, dfs_normal)
