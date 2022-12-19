@@ -1,6 +1,6 @@
 import copy
 
-from find_lc import find_longest_chain, find_longest_chain_no_removals
+from .find_lc import find_longest_chain, find_longest_chain_no_removals
 from graph import Graph, construct_graph
 
 

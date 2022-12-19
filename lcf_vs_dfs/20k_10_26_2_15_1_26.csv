@@ -1,4 +1,4 @@
-iteration,requests_count,nodes_count,time_limit,dfs_backtrack,dfs_normal,ratio
+iteration,requests_count,nodes_count,time_limit,lcf,dfs,ratio
 1,14,8,16,13,13,1.0
 2,22,5,12,12,11,1.0909090909090908
 3,9,11,26,9,9,1.0

@@ -4,7 +4,7 @@ from joblib import Parallel, delayed
 
 from computation.find_lcf import find_lcf_outcome
 from graph import generate_requests_uniform
-from simulation.simulation import write_instance_to_file
+from simulation.sync_simulation import write_instance_to_file
 
 
 def process(i, time_limit_min, time_limit_max, nodes_min, nodes_max, requests_min, requests_max, seed):
@@ -17,16 +17,16 @@ def process(i, time_limit_min, time_limit_max, nodes_min, nodes_max, requests_mi
     nodes_count = random.randrange(nodes_min, nodes_max + 1)
     requests_count = random.randrange(requests_min, requests_max + 1)
 
-    # avoid giving too much time to see the difference between dfs_backtrack and dfs_normal
+    # avoid giving too much time to see the difference between lcf and dfs
     scaled_time_limit = min(time_limit, requests_count * 2 - 1)
     # num of nodes needs to > 1
     # pick relatively big number of nodes to avoid long runtime of DFS-B
     scaled_nodes_count = max(nodes_count, requests_count // 3)
 
     graph = generate_requests_uniform(scaled_nodes_count, requests_count)
-    dfs_normal = find_lcf_outcome(graph, scaled_time_limit, no_removals=True)
-    dfs_backtrack = find_lcf_outcome(graph, scaled_time_limit, no_removals=False)
-    write_instance_to_file(i + 1, requests_count, scaled_nodes_count, scaled_time_limit, dfs_backtrack, dfs_normal)
+    lcf = find_lcf_outcome(graph, scaled_time_limit, no_removals=True)
+    dfs = find_lcf_outcome(graph, scaled_time_limit, no_removals=False)
+    write_instance_to_file(i + 1, requests_count, scaled_nodes_count, scaled_time_limit, lcf, dfs)
 
 
 if __name__ == "__main__":
