@@ -1,5 +1,5 @@
 # dial-a-ride
-Source code for the research on the Longest-Chain-First approach Dial-a-Ride problem
+Source code for the research on the Longest-Chain-First approach for the Dial-a-Ride problem
 conducted by Bill Tran and Minh Nguyen at Connecticut College, supervised and consulted
 by Professor Christine Chung, in the Fall 2022.
 
