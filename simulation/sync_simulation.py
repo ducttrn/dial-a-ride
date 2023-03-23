@@ -28,24 +28,23 @@ def write_instance_to_file(
 
 
 if __name__ == "__main__":
-    iterations = int(input("How many iterations do you want to run? "))
-    time_limit_min = int(input("Minimum time limit? "))
-    time_limit_max = int(input("Maximum time limit? "))
-    nodes_min = int(input("Minimum number of nodes? "))
-    nodes_max = int(input("Maximum number of nodes? "))
-    requests_min = int(input("Minimum number of requests? "))
-    requests_max = int(input("Maximum number of requests? "))
+    time_limit_min = 75
+    time_limit_max = 76
+    nodes_min = 50
+    nodes_max = 51
+    requests_min = 100
+    requests_max = 101
 
-    for i in range(iterations):
+    total = 0
+    for i in range(200):
         print(f"Iteration: {i + 1}")
-        nodes_count = randrange(nodes_min, nodes_max + 1)
-        requests_count = randrange(requests_min, requests_max + 1)
-        # num of nodes needs to > 1
-        # pick relatively big number of nodes to avoid long runtime of DFS-B
-        scaled_nodes_count = max(nodes_count, requests_count // 3)
-        print(f"Nodes: {scaled_nodes_count}, Requests: {requests_count}, Time: {15}")
+        nodes_count = randrange(nodes_min, nodes_max)
+        requests_count = randrange(requests_min, requests_max)
+        time_limit = randrange(time_limit_min, time_limit_max)
 
-        graph = generate_requests_uniform(scaled_nodes_count, requests_count)
-        dfs = find_lcf_outcome(graph, 15, no_removals=True)
-        lcf = find_lcf_outcome(graph, 15, no_removals=False)
-        write_instance_to_file(requests_count, scaled_nodes_count, 15, lcf, dfs, None)
+        print(f"Nodes: {nodes_count}, Requests: {requests_count}, Time: {15}")
+
+        graph = generate_requests_uniform(nodes_count, requests_count)
+        dfs = find_lcf_outcome(graph, time_limit, no_removals=True)
+        total += dfs
+    print(f"DFS: {total / 200}")

@@ -29,6 +29,9 @@ def find_longest_chain(graph: Graph):
 
 
 def find_longest_chain_no_removals(graph: Graph):
+    """
+    Find the longest chain without accurately removing requests from paths - polynomial time
+    """
     max_chain_length = 0
     max_chain = []
     visited = set()

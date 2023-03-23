@@ -1,6 +1,6 @@
 import copy
 
-from .find_lc import find_longest_chain, find_longest_chain_no_removals
+from find_lc import find_longest_chain, find_longest_chain_no_removals
 from graph import Graph, construct_graph
 
 
@@ -50,16 +50,6 @@ if __name__ == "__main__":
         "8": ("B", "D"),
         "9": ("A", "C"),
         "10": ("A", "C"),
-        "11": ("A", "D"),
-        "12": ("A", "D"),
-        "13": ("C", "B"),
-        "14": ("A", "D"),
-        "15": ("C", "D"),
-        "16": ("D", "A"),
-        "17": ("A", "B"),
-        "18": ("A", "D"),
-        "19": ("A", "C"),
-        "20": ("B", "A"),
     }
     graph = construct_graph(node_ids_, request_data)
     print(f"LCF with Normal DFS: {find_lcf_outcome(graph, 28, no_removals=True)}")
