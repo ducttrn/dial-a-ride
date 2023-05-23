@@ -1,10 +1,17 @@
 import copy
 
-from find_lc import find_longest_chain, find_longest_chain_no_removals
+from .find_lc import find_longest_chain, find_longest_chain_no_removals
 from graph import Graph, construct_graph
 
 
 def find_lcf_outcome(graph: Graph, time_limit: int, no_removals=False) -> int:
+    """
+    Find the outcome of the LCF algorithm on a given graph and time limit.
+    :param graph
+    :param time_limit
+    :param no_removals: if True, use the LCF algorithm with no removals (DFS as described in the paper)
+    :return:
+    """
     graph_ = copy.deepcopy(graph)  # deepcopy to avoid removing edges from the original graph
     served = 0  # number of requests served
     time_remaining = time_limit

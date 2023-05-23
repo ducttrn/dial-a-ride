@@ -4,6 +4,9 @@ from graph import Graph, construct_graph
 
 
 def find_two_chain_outcome(graph: Graph, time_limit: int):
+    """
+    Find the number of requests served by TwoChain
+    """
     graph_ = copy.deepcopy(graph)  # deepcopy to avoid removing edges from the original graph
     served = 0  # number of requests served
     time_remaining = time_limit
@@ -37,6 +40,8 @@ def find_two_chain_outcome(graph: Graph, time_limit: int):
             chain_endpoint = graph_.requests[two_chain[1]].dst
             for request_id in two_chain:
                 graph_.remove_request(request_id)
+            # Keep serving if there are requests starting at the current node
+            # Until reaching a dead end
             while time_remaining > 0 and len(graph_.requests) and chain_endpoint.out_requests:
                 request_id = list(chain_endpoint.out_requests)[0]
                 print(request_id)
@@ -49,6 +54,9 @@ def find_two_chain_outcome(graph: Graph, time_limit: int):
 
 
 def find_chain_two(graph: Graph):
+    """
+    Find any chain of length 2
+    """
     for request in graph.requests.values():
         if request.dst.out_requests:
             return [request.id, list(request.dst.out_requests)[0]]

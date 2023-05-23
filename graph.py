@@ -17,6 +17,9 @@ class Request:
 
 
 class Graph:
+    """
+    Class to represent a graph
+    """
     def __init__(self, nodes: Dict[str, Node], requests: Dict[str, Request]):
         self.nodes = nodes
         self.requests = requests

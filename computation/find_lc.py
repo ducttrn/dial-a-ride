@@ -4,10 +4,18 @@ from graph import Node, Graph, construct_graph
 
 
 def find_longest_chain(graph: Graph):
+    """
+    Find the longest chain in a graph by recursively tracing every path - exponential time
+    :param graph:
+    :return:
+    """
     max_chain_length = 0
     max_chain = []
 
     def dfs(current_node: Node, current: List[str]):
+        """
+        Recursive function to find the longest chain
+        """
         if current_node.out_requests.issubset(current):
             nonlocal max_chain_length
             nonlocal max_chain
@@ -23,7 +31,7 @@ def find_longest_chain(graph: Graph):
                 current.pop()
 
     for node in graph.nodes.values():
-        dfs(node, [])
+        dfs(node, [])  # start dfs from every node
 
     return max_chain
 
@@ -37,6 +45,9 @@ def find_longest_chain_no_removals(graph: Graph):
     visited = set()
 
     def dfs(current_node: Node, current: List[str]):
+        """
+        Recursive function to find the longest chain
+        """
         if current_node.out_requests.issubset(visited):
             nonlocal max_chain_length
             nonlocal max_chain
@@ -53,7 +64,7 @@ def find_longest_chain_no_removals(graph: Graph):
                 current.pop()
 
     for node in graph.nodes.values():
-        dfs(node, [])
+        dfs(node, [])  # start dfs from every node
 
     return max_chain
 

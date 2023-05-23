@@ -7,6 +7,8 @@ from graph import generate_requests_uniform
 from simulation.sync_simulation import write_instance_to_file
 
 
+# Run simulations in parallel to save time
+# good for running exponential algorithms but unnecessary for polynomial ones
 def process(i, time_limit_min, time_limit_max, nodes_min, nodes_max, requests_min, requests_max, seed):
     # Seed to avoid generating the same graph for each process
     # https://stackoverflow.com/questions/31740561/random-number-generator-using-joblib

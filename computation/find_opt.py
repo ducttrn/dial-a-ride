@@ -5,7 +5,43 @@ from sympy.utilities.iterables import multiset_permutations
 from graph import construct_graph, Graph
 
 
+def find_optimal(graph: Graph, time_limit: int) -> int:
+    """
+    Find the optimal number of requests served within the time limit by trying all the permutations of requests
+    :param graph
+    :param time_limit
+    :return: number of requests served by the optimal solution
+    """
+    if time_limit > 2 * len(graph.requests.keys()):
+        return len(graph.requests.keys())
+
+    max_requests = 0  # maximum number of requests served within time limit
+    requests = graph.requests
+    array = np.array(list(requests.keys()))
+    if time_limit < len(graph.requests.keys()):
+        permutations = multiset_permutations(array, size=time_limit)  # find a way to do lazy loading/save memory
+    else:
+        permutations = multiset_permutations(array)  # list of request IDs
+
+    last_perm = [0]
+
+    for perm in permutations:
+        if perm[:len(last_perm)] != last_perm:
+            requests_served, current_perm = calculate_served_requests(graph, perm, time_limit)
+            max_requests = max(max_requests, requests_served)
+            last_perm = current_perm
+
+    return max_requests
+
+
 def calculate_served_requests(graph: Graph, permutation: List[str], time_limit: int) -> (int, int):
+    """
+    Helper function to calculate the number of requests served by the given permutation of requests
+    :param graph:
+    :param permutation: the given permutation of requests
+    :param time_limit:
+    :return:
+    """
     requests_served = 0
     time_left = time_limit
     current_destination = graph.requests[permutation[0]].src.id
@@ -27,29 +63,6 @@ def calculate_served_requests(graph: Graph, permutation: List[str], time_limit: 
             current_destination = request.src.id
 
     return requests_served, permutation[:last_request+1]
-
-
-def find_optimal(graph: Graph, time_limit: int) -> int:
-    if time_limit > 2 * len(graph.requests.keys()):
-        return len(graph.requests.keys())
-
-    max_requests = 0  # maximum number of requests served within time limit
-    requests = graph.requests
-    array = np.array(list(requests.keys()))
-    if time_limit < len(graph.requests.keys()):
-        permutations = multiset_permutations(array, size=time_limit)  # find a way to do lazy loading/save memory
-    else:
-        permutations = multiset_permutations(array)  # list of request IDs
-
-    last_perm = [0]
-
-    for perm in permutations:
-        if perm[:len(last_perm)] != last_perm:
-            requests_served, current_perm = calculate_served_requests(graph, perm, time_limit)
-            max_requests = max(max_requests, requests_served)
-            last_perm = current_perm
-
-    return max_requests
 
 
 if __name__ == "__main__":
