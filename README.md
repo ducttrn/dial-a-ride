@@ -1,7 +1,7 @@
 # dial-a-ride
-Source code for the research on the Longest-Chain-First approach for the Dial-a-Ride problem
+Source code for the research on the Longest-Chain-First and k-chain approaches for the Dial-a-Ride problem
 conducted by Bill Tran and Minh Nguyen at Connecticut College, supervised and consulted
-by Professor Christine Chung, in the Fall 2022.
+by Professor Christine Chung, in the Fall 2022 and Spring 203 semesters.
 
 ## Problem Description
 ### General Dial-a-Ride Problem
@@ -49,6 +49,13 @@ longest chain it could see without backtracking, and visits each edge only once.
 
 Implementation: [find_lc.py](./computation/find_lc.py) (find_longest_chain_no_removals)
 
+## k-chain Approach
+### Overview
+We also studied another approach to the DARP that we call the k-chain approach. k-chain is a polynomial-
+time algorithm (which is exponential in the fixed k that is selected) that prioritizes
+requests that are the first in a chain of length k.
+### Find a Chain of Length k and k-chain Implementation
+The code for finding a chain of length k and the k-chain algorithm can be found here: [find_k_chain.py](./computation/find_k_chain.py)
 ## Simulations & Results
 Scripts to run simulations can be found in the [simulation](./simulation) folder:
 - [sync_simulation.py](./simulation/sync_simulation.py): run simulations synchronously
@@ -61,7 +68,8 @@ Simulation data can be found in the [simulation-data](./simulation_data) folder 
 ![Simulation Results](./img/simulation_results.png)
 
 ## More on this topic
-- [Our presentation](https://docs.google.com/presentation/d/1SK-6StupipZcgB4pLqL-DUJGJsXika9lVmJliMKKQAs/edit?usp=sharing)
+- [LCF presentation](https://docs.google.com/presentation/d/1SK-6StupipZcgB4pLqL-DUJGJsXika9lVmJliMKKQAs/edit#slide=id.p)
+- [k-chain presentation](https://docs.google.com/presentation/d/1A_IN4hM-9n7Q7_joFNkgO4NTD1P9kT6vlitgqZNqUyE/edit#slide=id.p)
 
 ## References
 [1] Barbara M. Anthony, Ricky Birnbaum, Sara Boyd, Ananya Christman, Christine
