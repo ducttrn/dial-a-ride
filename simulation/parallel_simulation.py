@@ -1,10 +1,10 @@
-import random
 
 from joblib import Parallel, delayed
 
 from computation.find_lcf import find_lcf_outcome
 from graph import generate_requests_uniform
 from simulation.sync_simulation import write_instance_to_file
+import secrets
 
 
 # Run simulations in parallel to save time
@@ -14,10 +14,10 @@ def process(i, time_limit_min, time_limit_max, nodes_min, nodes_max, requests_mi
     # https://stackoverflow.com/questions/31740561/random-number-generator-using-joblib
     print(f"Iteration: {i + 1}")
 
-    random.seed(seed)
-    time_limit = random.randrange(time_limit_min, time_limit_max + 1)
-    nodes_count = random.randrange(nodes_min, nodes_max + 1)
-    requests_count = random.randrange(requests_min, requests_max + 1)
+    secrets.SystemRandom().seed(seed)
+    time_limit = secrets.SystemRandom().randrange(time_limit_min, time_limit_max + 1)
+    nodes_count = secrets.SystemRandom().randrange(nodes_min, nodes_max + 1)
+    requests_count = secrets.SystemRandom().randrange(requests_min, requests_max + 1)
 
     # avoid giving too much time to see the difference between lcf and dfs
     scaled_time_limit = min(time_limit, requests_count * 2 - 1)
@@ -43,6 +43,6 @@ if __name__ == "__main__":
     # Joblib doc: n_jobs=-1 means using processors
     results = Parallel(n_jobs=-1)(
         delayed(process)(
-            i, time_limit_min, time_limit_max, nodes_min, nodes_max, requests_min, requests_max, random.randrange(1, 100)
+            i, time_limit_min, time_limit_max, nodes_min, nodes_max, requests_min, requests_max, secrets.SystemRandom().randrange(1, 100)
         ) for i in range(iterations)
     )

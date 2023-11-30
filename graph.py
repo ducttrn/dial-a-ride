@@ -1,5 +1,5 @@
 from typing import Dict
-from random import randrange
+import secrets
 
 
 class Node:
@@ -53,10 +53,10 @@ def generate_requests_uniform(nodes_count: int, requests_count: int) -> Graph:
     request_data = {}
 
     for i in range(requests_count):
-        source = randrange(nodes_count)
-        destination = randrange(nodes_count)
+        source = secrets.SystemRandom().randrange(nodes_count)
+        destination = secrets.SystemRandom().randrange(nodes_count)
         while destination == source:
-            destination = randrange(nodes_count)
+            destination = secrets.SystemRandom().randrange(nodes_count)
 
         request_data[str(i + 1)] = (node_ids_[source], node_ids_[destination])
 
