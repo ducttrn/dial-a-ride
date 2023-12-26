@@ -23,8 +23,7 @@ def find_lcf_outcome(graph: Graph, time_limit: int, no_removals=False) -> int:
         else:
             max_chain = find_longest_chain(graph_)
 
-        max_chain_length = len(max_chain)
-        if max_chain_length == 0:
+        if (max_chain_length := len(max_chain)) == 0:
             return served
 
         if jump_needed:

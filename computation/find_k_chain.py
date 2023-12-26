@@ -73,8 +73,7 @@ def find_chain_k(graph: Graph, k: int):
         return []
 
     for request in graph.requests.values():
-        chain = find_chain_k_(k - 1, [request.id])
-        if chain:
+        if chain := find_chain_k_(k - 1, [request.id]):
             return chain
 
     return []
